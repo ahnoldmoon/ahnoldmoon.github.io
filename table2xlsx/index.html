@@ -48,6 +48,14 @@
          padding:1px 5px; font-size:13.5px; font-family:Consolas,monospace; }
   a { color:var(--accent); }
 
+  .tip {
+    background:var(--card); border:1px solid var(--line);
+    border-left:3px solid var(--accent); border-radius:8px;
+    padding:14px 18px; font-size:14.5px; color:var(--muted);
+  }
+  .tip b { color:var(--ink); }
+  h2[id] { scroll-margin-top:24px; }
+
   footer { margin-top:52px; padding-top:22px; border-top:1px solid var(--line);
            font-size:13.5px; color:var(--muted); }
   @media (max-width:560px) {
@@ -117,6 +125,29 @@
   </table>
   <p>구매는 확장 프로그램 팝업의 안내 화면에서 진행할 수 있습니다.</p>
 
+  <h2 id="license">라이선스 키 등록하기</h2>
+  <p>
+    결제가 끝나면 입력하신 이메일로 라이선스 키가 자동으로 발송됩니다.
+    메일이 보이지 않으면 스팸함도 확인해 주세요.
+  </p>
+  <ol>
+    <li>메일에 있는 라이선스 키를 복사합니다.
+        (<code>XXXXXXXX-XXXXXXXX-…</code> 형태입니다)</li>
+    <li>크롬 툴바의 <b>표를 엑셀로 저장</b> 아이콘을 클릭합니다.</li>
+    <li>안내 상자의 입력칸에 키를 붙여넣고 <b>등록</b>을 누릅니다.</li>
+    <li>팝업 상단 배지가 <b>✓ Pro — 무제한</b>으로 바뀌면 완료입니다.</li>
+  </ol>
+  <p class="tip">
+    <b>입력칸이 보이지 않나요?</b> 이번 달 무료 사용량이 아직 남아 있으면 안내 상자가
+    표시되지 않습니다. 무료 20회를 모두 사용하면 나타납니다.
+    (다음 업데이트에서 언제든 등록할 수 있도록 개선할 예정입니다.
+    먼저 등록이 필요하시면 <a href="mailto:pygichacha@gmail.com">메일</a>로 알려주세요.)
+  </p>
+  <p>
+    같은 키로 <b>PC 3대까지</b> 등록할 수 있습니다. 기기를 교체해 등록 가능 대수를
+    넘겼다면 메일로 문의해 주시면 초기화해 드립니다.
+  </p>
+
   <h2>알아두실 점</h2>
   <ul>
     <li>HTML <code>&lt;table&gt;</code> 태그로 만들어진 표를 인식합니다.
@@ -132,7 +163,9 @@
 
   <h2>문의</h2>
   <p>
-    버그 제보, 기능 요청, 환불 문의는 <a href="mailto:pygichacha@gmail.com">pygichacha@gmail.com</a> 으로 보내주세요.
+    버그 제보, 기능 요청, 라이선스·환불 문의는
+    <a href="mailto:pygichacha@gmail.com">pygichacha@gmail.com</a> 으로 보내주세요.
+    보통 하루 안에 답장드립니다.
   </p>
 
   <footer>
