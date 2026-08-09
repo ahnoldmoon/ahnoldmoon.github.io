@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>개인정보처리방침 — Table to Excel (표를 엑셀로 저장)</title>
+<meta name="description" content="Chrome 확장 프로그램 Table to Excel의 개인정보처리방침. 표 데이터는 브라우저 안에서만 처리되며 외부로 전송되지 않습니다." />
+<style>
+  :root {
+    --bg: #f7f8f4;
+    --card: #ffffff;
+    --ink: #1a2b1e;
+    --muted: #5a6b5e;
+    --line: #dde3d8;
+    --accent: #2e6b3f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Malgun Gothic", "Segoe UI", -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 48px 20px 80px;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  header { margin-bottom: 32px; }
+  .eyebrow {
+    display: inline-block;
+    background: var(--accent); color: #fff;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.02em;
+    padding: 4px 11px; border-radius: 20px; margin-bottom: 14px;
+  }
+  h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.3; }
+  .dates { font-size: 13px; color: var(--muted); margin-top: 10px; }
+
+  .summary {
+    background: var(--card);
+    border: 1.5px solid var(--accent);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin: 28px 0 40px;
+  }
+  .summary strong { display: block; font-size: 16px; margin-bottom: 8px; }
+  .summary ul { margin: 10px 0 0 18px; }
+  .summary li { font-size: 15px; margin-bottom: 4px; }
+
+  h2 {
+    font-size: 19px; font-weight: 800; letter-spacing: -0.02em;
+    margin: 36px 0 12px; padding-top: 20px; border-top: 1px solid var(--line);
+  }
+  h3 { font-size: 15px; font-weight: 700; margin: 20px 0 6px; }
+  p { font-size: 15px; margin-bottom: 12px; }
+  ul, ol { margin: 0 0 14px 20px; }
+  li { font-size: 15px; margin-bottom: 6px; }
+  code {
+    background: #eef1ea; border: 1px solid var(--line); border-radius: 4px;
+    padding: 1px 5px; font-size: 13.5px; font-family: Consolas, monospace;
+  }
+  table {
+    width: 100%; border-collapse: collapse; margin: 10px 0 16px;
+    font-size: 14.5px; background: var(--card);
+  }
+  th, td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; vertical-align: top; }
+  th { background: #eef2ea; font-weight: 700; width: 34%; }
+  a { color: var(--accent); }
+  .no-collect td:first-child { font-weight: 600; }
+  .ok { color: var(--accent); font-weight: 700; }
+
+  footer {
+    margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line);
+    font-size: 13.5px; color: var(--muted);
+  }
+  .lang-note {
+    font-size: 13px; color: var(--muted); margin-top: 6px;
+  }
+  @media (max-width: 560px) {
+    body { padding: 32px 16px 60px; }
+    h1 { font-size: 23px; }
+    th { width: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Chrome 확장 프로그램</div>
+    <h1>Table to Excel(표를 엑셀로 저장)<br />개인정보처리방침</h1>
+    <div class="dates">시행일: 2026년 8월 9일 · 최종 수정일: 2026년 8월 9일</div>
+  </header>
+
+  <div class="summary">
+    <strong>한 줄 요약</strong>
+    이 확장 프로그램은 사용자의 개인정보를 <b>수집하지 않습니다.</b>
+    <ul>
+      <li>웹페이지에서 읽은 표 데이터는 <b>사용자의 브라우저 안에서만</b> 처리되며 어떤 서버로도 전송되지 않습니다.</li>
+      <li>사용 횟수와 라이선스 키는 <b>사용자 기기(<code>chrome.storage.local</code>)에만</b> 저장됩니다.</li>
+      <li>외부 통신은 <b>유료 라이선스 키의 유효성 확인 1건</b>뿐입니다.</li>
+    </ul>
+  </div>
+
+  <h2>1. 처리하는 데이터</h2>
+
+  <h3>1-1. 웹페이지의 표 데이터</h3>
+  <p>
+    사용자가 툴바 아이콘을 클릭한 그 순간, 현재 활성 탭의 <code>&lt;table&gt;</code> 요소에 담긴
+    텍스트를 읽어 엑셀(.xlsx) 파일로 변환합니다.
+    이 데이터는 브라우저 메모리에서만 처리되어 사용자의 컴퓨터에 파일로 저장되며,
+    <b>개발자를 포함한 누구에게도 전송되지 않고 저장·보관되지도 않습니다.</b>
+    팝업 창을 닫으면 메모리에서 사라집니다.
+  </p>
+
+  <h3>1-2. 사용자 기기에만 저장되는 정보</h3>
+  <table>
+    <tr>
+      <th>저장 항목</th>
+      <th>내용과 목적</th>
+    </tr>
+    <tr>
+      <td><code>usage</code></td>
+      <td>이번 달 저장 횟수(예: <code>{ month: "2026-08", count: 3 }</code>)와 해당 월 정보.
+          무료 사용 한도(월 20회)를 계산하기 위해 사용합니다. 개인을 식별할 수 있는 정보는 포함하지 않습니다.</td>
+    </tr>
+    <tr>
+      <td><code>license</code></td>
+      <td>사용자가 직접 입력한 라이선스 키, 기기 식별용 활성화 ID, 마지막 확인 시각.
+          유료 사용 여부를 판단하기 위해 사용합니다.</td>
+    </tr>
+  </table>
+  <p>
+    두 항목 모두 Chrome의 <code>chrome.storage.local</code>(사용자 기기 내부 저장소)에만 저장되며
+    외부로 동기화되거나 전송되지 않습니다. 확장 프로그램을 삭제하면 함께 삭제됩니다.
+  </p>
+
+  <h2>2. 수집하지 않는 정보</h2>
+  <table class="no-collect">
+    <tr><td>이름, 이메일, 전화번호 등 개인 식별 정보</td><td><span class="ok">수집하지 않음</span></td></tr>
+    <tr><td>방문한 웹사이트 주소·방문 기록</td><td><span class="ok">수집하지 않음</span></td></tr>
+    <tr><td>표 내용 등 사용자 활동 데이터</td><td><span class="ok">수집하지 않음</span></td></tr>
+    <tr><td>위치 정보, 기기 식별자, 광고 식별자</td><td><span class="ok">수집하지 않음</span></td></tr>
+    <tr><td>인증 정보(비밀번호, 쿠키, 토큰 등)</td><td><span class="ok">수집하지 않음</span></td></tr>
+    <tr><td>분석·통계 도구, 광고 추적 코드</td><td><span class="ok">사용하지 않음</span></td></tr>
+  </table>
+
+  <h2>3. 외부로 나가는 유일한 통신 — 라이선스 확인</h2>
+  <p>
+    유료 라이선스를 구매한 사용자가 키를 입력하면, 그 키가 유효한지 확인하기 위해
+    결제 처리사인 <b>Lemon Squeezy</b>의 공개 API(<code>https://api.lemonsqueezy.com/v1/licenses</code>)로
+    <b>라이선스 키와 활성화 ID만</b> 전송됩니다. 이때 표 데이터나 방문 기록 등 다른 정보는 일절 포함되지 않습니다.
+  </p>
+  <ul>
+    <li><b>발생 시점:</b> ① 사용자가 라이선스 키를 처음 등록할 때 ② 등록 후 3일에 한 번 유효성 재확인 시</li>
+    <li><b>전송 내용:</b> 라이선스 키, 활성화 ID(Lemon Squeezy가 발급한 값)</li>
+    <li><b>목적:</b> 유효한 구매인지 확인 (환불·취소된 키 차단)</li>
+    <li><b>무료 사용자:</b> 라이선스 키를 등록하지 않으면 이 통신은 <b>한 번도 발생하지 않습니다.</b></li>
+  </ul>
+  <p>
+    Lemon Squeezy의 개인정보 처리에 대해서는
+    <a href="https://www.lemonsqueezy.com/privacy" target="_blank" rel="noopener">Lemon Squeezy 개인정보처리방침</a>을 참고하시기 바랍니다.
+    결제 시 입력하는 이메일·결제 정보는 Lemon Squeezy가 직접 처리하며, 개발자는 이를 저장하지 않습니다.
+  </p>
+
+  <h2>4. 권한을 요청하는 이유</h2>
+  <table>
+    <tr><th>권한</th><th>사용 목적</th></tr>
+    <tr>
+      <td><code>activeTab</code></td>
+      <td>사용자가 툴바 아이콘을 클릭한 <b>바로 그 탭</b>에 한해 접근합니다.
+          클릭하지 않은 탭이나 백그라운드 페이지는 읽지 않습니다.</td>
+    </tr>
+    <tr>
+      <td><code>scripting</code></td>
+      <td>해당 페이지에서 <code>&lt;table&gt;</code> 요소의 텍스트를 읽어오는 함수를 실행하기 위해 필요합니다.</td>
+    </tr>
+    <tr>
+      <td><code>storage</code></td>
+      <td>무료 사용 횟수와 라이선스 키를 사용자 기기에만 저장하기 위해 필요합니다.</td>
+    </tr>
+    <tr>
+      <td><code>api.lemonsqueezy.com</code></td>
+      <td>유료 라이선스 키의 유효성 확인을 위한 결제 처리사 통신에만 사용합니다.</td>
+    </tr>
+  </table>
+
+  <h2>5. 데이터의 판매·양도</h2>
+  <p>
+    개발자는 사용자 데이터를 수집하지 않으므로 <b>제3자에게 판매·양도·공유할 데이터 자체가 없습니다.</b>
+    또한 확장 프로그램의 핵심 기능과 무관한 목적(광고, 신용평가, 데이터 브로커 등)으로
+    데이터를 사용하지 않습니다.
+  </p>
+
+  <h2>6. 아동의 개인정보</h2>
+  <p>
+    이 확장 프로그램은 어떤 사용자로부터도 개인정보를 수집하지 않으므로,
+    만 14세 미만 아동의 개인정보 역시 수집하지 않습니다.
+  </p>
+
+  <h2>7. 데이터 삭제 방법</h2>
+  <p>
+    <code>chrome://extensions</code>에서 이 확장 프로그램을 삭제하면 기기에 저장된 사용 횟수와
+    라이선스 키가 함께 삭제됩니다. 라이선스 키만 해제하고 싶은 경우 아래 이메일로 문의해 주세요.
+  </p>
+
+  <h2>8. 방침의 변경</h2>
+  <p>
+    본 방침이 변경되는 경우 이 페이지의 내용을 갱신하고 상단의 최종 수정일을 함께 변경합니다.
+    중요한 변경(예: 새로운 데이터 수집)이 발생하면 확장 프로그램 업데이트 시 별도로 안내합니다.
+  </p>
+
+  <h2>9. 문의</h2>
+  <p>
+    개인정보 처리에 관한 문의는 아래로 연락해 주세요.<br />
+    이메일: <a href="mailto:pygichacha@gmail.com">pygichacha@gmail.com</a>
+  </p>
+
+  <footer>
+    © 2026 Table to Excel. 이 페이지는 Chrome 웹 스토어에 등록된
+    확장 프로그램 “Table to Excel(표를 엑셀로 저장)”의 개인정보처리방침입니다.
+    <div class="lang-note">
+      English summary: This extension does not collect any personal data. Table contents are processed
+      entirely inside your browser and are never transmitted anywhere. Usage counts and your license key are
+      stored only on your device via <code>chrome.storage.local</code>. The only outbound request is a
+      license-key validation call to Lemon Squeezy, which is sent only if you enter a paid license key.
+      Contact: pygichacha@gmail.com
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
