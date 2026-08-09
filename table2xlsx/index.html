@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>표를 엑셀로 저장 (Table to Excel) — Chrome 확장 프로그램</title>
+<meta name="description" content="웹페이지의 표를 클릭 한 번으로 엑셀(.xlsx) 파일로 저장하는 Chrome 확장 프로그램. 표 데이터는 브라우저 안에서만 처리되며 서버로 전송되지 않습니다." />
+<style>
+  :root { --bg:#f7f8f4; --card:#fff; --ink:#1a2b1e; --muted:#5a6b5e; --line:#dde3d8; --accent:#2e6b3f; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    font-family:"Malgun Gothic","Segoe UI",-apple-system,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7;
+    padding:56px 20px 90px; -webkit-text-size-adjust:100%;
+  }
+  .wrap { max-width:820px; margin:0 auto; }
+  .back { font-size:13.5px; color:var(--muted); text-decoration:none; }
+  .back:hover { color:var(--accent); }
+
+  header { display:flex; gap:20px; align-items:center; margin:26px 0 10px; }
+  header img { width:64px; height:64px; border-radius:15px; }
+  h1 { font-size:29px; font-weight:800; letter-spacing:-0.035em; line-height:1.25; }
+  .sub { font-size:15.5px; color:var(--muted); margin-top:8px; }
+
+  .notice {
+    background:var(--card); border:1.5px solid var(--accent); border-radius:12px;
+    padding:16px 20px; margin:26px 0 0; font-size:15px;
+  }
+  .notice b { color:var(--accent); }
+
+  h2 { font-size:19px; font-weight:800; letter-spacing:-0.025em;
+       margin:44px 0 12px; padding-top:22px; border-top:1px solid var(--line); }
+  p { font-size:15px; margin-bottom:12px; }
+  ul { margin:0 0 14px 20px; }
+  li { font-size:15px; margin-bottom:7px; }
+  ol { margin:0 0 14px 22px; }
+  ol li { margin-bottom:9px; }
+
+  figure { margin:18px 0 26px; }
+  figure img { width:100%; border-radius:10px; border:1px solid var(--line); display:block; }
+  figcaption { font-size:13px; color:var(--muted); margin-top:8px; text-align:center; }
+
+  table { width:100%; border-collapse:collapse; margin:10px 0 16px; font-size:14.5px; background:var(--card); }
+  th, td { border:1px solid var(--line); padding:10px 13px; text-align:left; vertical-align:top; }
+  th { background:#eef2ea; font-weight:700; width:30%; }
+
+  code { background:#eef1ea; border:1px solid var(--line); border-radius:4px;
+         padding:1px 5px; font-size:13.5px; font-family:Consolas,monospace; }
+  a { color:var(--accent); }
+
+  footer { margin-top:52px; padding-top:22px; border-top:1px solid var(--line);
+           font-size:13.5px; color:var(--muted); }
+  @media (max-width:560px) {
+    body { padding:32px 16px 60px; }
+    h1 { font-size:23px; }
+    header { gap:14px; }
+    header img { width:52px; height:52px; }
+    th { width:auto; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="../">← ahnoldmoon</a>
+
+  <header>
+    <img src="img/icon128.png" alt="" />
+    <div>
+      <h1>표를 엑셀로 저장<br />(Table to Excel)</h1>
+    </div>
+  </header>
+  <p class="sub">
+    웹페이지의 표를 클릭 한 번으로 엑셀(.xlsx) 파일로 저장하는 Chrome 확장 프로그램입니다.
+  </p>
+
+  <div class="notice">
+    <b>표 데이터는 브라우저 안에서만 처리되며 어떤 서버로도 전송되지 않습니다.</b>
+    변환 사이트에 자료를 올릴 필요가 없습니다.
+  </div>
+
+  <h2>이런 일을 대신합니다</h2>
+  <p>
+    웹페이지의 표를 엑셀로 옮기려고 드래그 → 복사 → 붙여넣기를 하면 셀이 밀리거나 서식이 깨져
+    매번 다시 정리해야 합니다. 이 확장 프로그램은 페이지에 있는 표를 직접 읽어
+    엑셀 파일로 만들어 줍니다.
+  </p>
+
+  <figure>
+    <img src="img/screenshot-1.png" alt="페이지에서 찾은 표 목록이 팝업에 표시된 화면" />
+    <figcaption>아이콘을 클릭하면 페이지에서 찾은 표가 행·열 크기와 함께 목록으로 표시됩니다.</figcaption>
+  </figure>
+
+  <h2>사용법</h2>
+  <ol>
+    <li>표가 있는 웹페이지를 엽니다.</li>
+    <li>툴바의 확장 프로그램 아이콘을 클릭합니다.</li>
+    <li>표 목록에서 원하는 표 옆의 <b>저장</b>을 누르면 .xlsx 파일이 바로 다운로드됩니다.</li>
+  </ol>
+  <p>표가 여러 개면 <b>전체 표를 한 파일로 저장</b>으로 시트를 나눠 한 번에 받을 수 있습니다.</p>
+
+  <h2>병합된 셀도 그대로</h2>
+  <p>
+    rowspan · colspan으로 병합된 셀을 좌표로 계산해 옮기기 때문에 칸이 밀리지 않습니다.
+  </p>
+  <figure>
+    <img src="img/screenshot-2.png" alt="병합 셀이 있는 웹 표와 변환된 엑셀 파일 비교" />
+    <figcaption>왼쪽이 웹페이지의 표, 오른쪽이 저장된 .xlsx 파일입니다.</figcaption>
+  </figure>
+
+  <h2>요금</h2>
+  <table>
+    <tr><th>무료</th><td>매달 20회까지 저장. 기능 제한 없음. 매달 1일 자동 초기화.</td></tr>
+    <tr><th>Pro</th><td>평생 라이선스 1회 결제로 저장 횟수 무제한, PC 3대까지 등록.
+        구독이 아니며 기간 만료가 없습니다. 구매와 라이선스 키 발급은 결제 처리사
+        Lemon Squeezy가 담당합니다.</td></tr>
+  </table>
+  <p>구매는 확장 프로그램 팝업의 안내 화면에서 진행할 수 있습니다.</p>
+
+  <h2>알아두실 점</h2>
+  <ul>
+    <li>HTML <code>&lt;table&gt;</code> 태그로 만들어진 표를 인식합니다.
+        div로 그린 표(일부 웹앱)는 현재 버전에서 인식되지 않을 수 있습니다.</li>
+    <li>크롬 정책상 <code>chrome://</code> 로 시작하는 브라우저 내부 페이지에서는 동작하지 않습니다.</li>
+  </ul>
+
+  <h2>개인정보</h2>
+  <p>
+    개인정보를 수집하지 않습니다. 자세한 내용은
+    <a href="privacy/">개인정보처리방침</a>을 확인해 주세요.
+  </p>
+
+  <h2>문의</h2>
+  <p>
+    버그 제보, 기능 요청, 환불 문의는 <a href="mailto:pygichacha@gmail.com">pygichacha@gmail.com</a> 으로 보내주세요.
+  </p>
+
+  <footer>
+    © 2026 ahnoldmoon · <a href="privacy/">개인정보처리방침</a>
+  </footer>
+
+</div>
+</body>
+</html>
