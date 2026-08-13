@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LinkGuard — 링크 안전성 미리보기</title>
+<meta name="description" content="링크에 마우스를 올리면 실제 도착 주소·사칭 도메인·리다이렉트 경로를 미리 보여주는 크롬 확장. 국내 피싱·스미싱 패턴 반영, 외부 전송 없음.">
+<meta property="og:title" content="LinkGuard — 링크 안전성 미리보기">
+<meta property="og:description" content="클릭하기 전에, 그 링크가 어디로 가는지 먼저 봅니다.">
+<meta property="og:type" content="website">
+<link rel="icon" href="img/icon128.png">
+<style>
+  :root{
+    --bg:#ffffff; --fg:#16181d; --muted:#5f6672; --line:#e6e8ec; --soft:#f6f7f9;
+    --brand:#2f4fd0; --brand-dark:#1e3a8a; --danger:#d32f2f; --ok:#1a7f37;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#15171b; --fg:#e9eaec; --muted:#9aa0a6; --line:#2c2f36; --soft:#1c1f24;
+           --brand:#6ea8ff; --brand-dark:#0f1730; }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--fg);
+    font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:940px;margin:0 auto;padding:0 20px}
+  a{color:var(--brand)}
+
+  header.hero{
+    background:linear-gradient(150deg,#1e3a8a 0%,#2f4fd0 48%,#3f6ae0 100%);
+    color:#fff;padding:64px 0 72px;text-align:center;
+  }
+  .hero img.logo{width:64px;height:64px;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+  .hero h1{font-size:38px;font-weight:800;letter-spacing:-1px;margin:18px 0 10px}
+  .hero p.lead{font-size:17px;color:#cfdcff;max-width:600px;margin:0 auto}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+  .btn{display:inline-block;padding:13px 26px;border-radius:10px;font-weight:700;
+    text-decoration:none;font-size:15px}
+  .btn.primary{background:#fff;color:#1e3a8a}
+  .btn.ghost{background:rgba(255,255,255,.13);color:#fff;border:1px solid rgba(255,255,255,.35)}
+  .hero small{display:block;margin-top:16px;color:#b9caf5;font-size:13px}
+
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  h2{font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px}
+  h2+p.sub{color:var(--muted);margin-bottom:26px}
+
+  .shots{display:grid;gap:22px}
+  .shots figure{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--soft)}
+  .shots img{display:block;width:100%}
+  .shots figcaption{padding:11px 15px;font-size:13.5px;color:var(--muted)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+  .card{border:1px solid var(--line);border-radius:11px;padding:18px 20px;background:var(--soft)}
+  .card h3{font-size:15px;margin-bottom:6px}
+  .card p{font-size:14px;color:var(--muted);line-height:1.65}
+
+  ul.checks{list-style:none;display:grid;gap:9px}
+  ul.checks li{padding-left:26px;position:relative;font-size:15px}
+  ul.checks li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
+
+  .privacy{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+  .privacy strong{color:var(--fg)}
+
+  table{border-collapse:collapse;width:100%;font-size:14.5px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-size:13px;font-weight:600}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+
+  @media (max-width:520px){
+    .hero{padding:48px 0 56px}
+    .hero h1{font-size:27px;letter-spacing:-.6px}
+    .hero h1 br{display:none}
+    .hero p.lead{font-size:15.5px}
+    h2{font-size:21px}
+  }
+
+  footer{padding:34px 0 60px;color:var(--muted);font-size:13.5px;text-align:center}
+  footer a{margin:0 8px}
+  .note{font-size:13.5px;color:var(--muted);margin-top:14px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="logo" src="img/icon128.png" alt="LinkGuard">
+    <h1>클릭하기 전에,<br>그 링크가 어디로 가는지 봅니다</h1>
+    <p class="lead">링크에 마우스를 올리면 실제 도착 주소, 사칭 도메인 여부, 리다이렉트 경로,
+      도메인 등록 시점을 미리 보여주는 크롬 확장 프로그램입니다.</p>
+    <div class="cta">
+      <!-- TODO: 웹스토어 등록 후 실제 주소로 교체 -->
+      <a class="btn primary" href="#install">크롬에 추가하기</a>
+      <a class="btn ghost" href="#team">팀 도입 문의</a>
+    </div>
+    <small>무료 · 개인정보 수집 없음 · 기본 상태에서 외부 통신 0</small>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>어떻게 보이나요</h2>
+    <p class="sub">실제 동작 화면입니다.</p>
+    <div class="shots">
+      <figure>
+        <img src="img/raw-hover.png" alt="링크에 마우스를 올리면 위험 신호가 표시되는 화면">
+        <figcaption>마우스를 올리면 실제 주소와 위험 신호가 바로 뜹니다. Shift 를 누르면 패널이 고정됩니다.</figcaption>
+      </figure>
+      <figure>
+        <img src="img/raw-smishing.png" alt="택배 사칭 메일의 악성앱 링크를 탐지한 화면">
+        <figcaption>택배·부고장·과태료 사칭과 .apk 유도 등 국내 스미싱 패턴을 기준으로 판정합니다.</figcaption>
+      </figure>
+      <figure>
+        <img style="max-width:420px;margin:0 auto" src="img/raw-popup.png" alt="페이지 전체 링크를 검사한 팝업 화면">
+        <figcaption>툴바 아이콘을 누르면 현재 페이지의 위험 링크를 한 번에 확인할 수 있습니다.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>무엇을 잡아내나요</h2>
+    <p class="sub">주소 구조만으로 판별 가능한 신호를 모아 등급을 매깁니다.</p>
+    <div class="grid">
+      <div class="card"><h3>사칭 도메인</h3>
+        <p>글자 하나 바꾼 오타 도메인, 도메인 안에 브랜드명을 끼워 넣은 주소,
+          진짜 주소를 앞에 붙인 가짜 계층(www.example.com.xx)</p></div>
+      <div class="card"><h3>눈속임 문자</h3>
+        <p>키릴·그리스 문자로 영문처럼 보이게 만든 도메인, 퓨니코드,
+          표시된 글자와 실제 이동지가 다른 링크</p></div>
+      <div class="card"><h3>국내 스미싱</h3>
+        <p>택배·부고장·청첩장·교통과태료·건강검진·정부지원금 사칭과
+          악성앱(.apk) 유도, 확장자 위장</p></div>
+      <div class="card"><h3>감춰진 도착지</h3>
+        <p>단축 URL, 오픈 리다이렉트, IP 직접 접속, 비표준 포트,
+          무료 호스팅·동적 DNS 위에 올라간 페이지</p></div>
+      <div class="card"><h3>도메인 나이</h3>
+        <p>개설 30일 미만 도메인은 강한 피싱 신호입니다.
+          선택 기능을 켜면 등록 시점을 함께 보여줍니다.</p></div>
+      <div class="card"><h3>왜 위험한지 설명</h3>
+        <p>경고만 띄우지 않고 근거를 한 줄씩 함께 보여줍니다.
+          임직원 교육 보조 도구로 그대로 쓸 수 있습니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>얼마나 잡나요</h2>
+    <p class="sub">공개 위협 피드로 측정한 결과입니다. 숫자는 그대로 공개합니다.</p>
+    <table>
+      <thead><tr><th>대상</th><th>건수</th><th style="text-align:right">결과</th></tr></thead>
+      <tbody>
+        <tr><td>URLhaus (악성코드 유포 URL)</td><td>16,872</td><td class="num">86.4% 경고</td></tr>
+        <tr><td>OpenPhish (활성 피싱 URL)</td><td>300</td><td class="num">62.3% 경고</td></tr>
+        <tr><td>정상 사이트 링크 (네이버·다음·11번가 등)</td><td>1,600+</td><td class="num">오탐 0건</td></tr>
+      </tbody>
+    </table>
+    <p class="note">
+      피싱 탐지율이 100%가 될 수 없는 이유는 정직하게 말씀드립니다 —
+      놓치는 것의 대부분은 <strong>해킹당한 정상 사이트</strong>입니다.
+      주소만 봐서는 정상과 구별할 방법이 없습니다.
+      이 확장은 차단 목록의 대체재가 아니라, <strong>클릭 직전에 근거를 보여주는 미리보기·교육 도구</strong>입니다.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>개인정보를 수집하지 않습니다</h2>
+    <p class="sub">보안 도구가 사용자를 감시하면 안 됩니다.</p>
+    <div class="privacy">
+      <ul class="checks">
+        <li>기본 상태에서 <strong>외부와 어떤 통신도 하지 않습니다.</strong> 서버 자체가 없습니다.</li>
+        <li>방문 기록·페이지 내용·계정 정보를 수집하거나 전송하지 않습니다.</li>
+        <li>분석은 전부 브라우저 안에서 이루어집니다.</li>
+        <li>도메인 등록일 조회와 리다이렉트 추적은 <strong>선택 기능</strong>이며 기본값은 꺼짐입니다.</li>
+        <li>원격 코드를 내려받지 않습니다. 모든 코드가 패키지에 들어 있습니다.</li>
+      </ul>
+      <p class="note"><a href="privacy.html">개인정보처리방침 전문 보기 →</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="team">
+  <div class="wrap">
+    <h2>회사·팀 단위로 쓰기</h2>
+    <p class="sub">임직원 피싱 인식 교육의 보조 도구로 설계했습니다.</p>
+    <div class="grid">
+      <div class="card"><h3>정책 일괄 배포</h3>
+        <p>그룹 정책(MDM)으로 전 직원 브라우저에 설정을 한 번에 적용합니다.</p></div>
+      <div class="card"><h3>사내 신뢰 도메인</h3>
+        <p>우리 회사 도메인은 항상 "확인됨"으로 표시해 불필요한 경고를 없앱니다.</p></div>
+      <div class="card"><h3>우리 회사 사칭 감시</h3>
+        <p>자사 이름을 흉내 낸 도메인을 직원 화면에서 즉시 잡아냅니다.</p></div>
+      <div class="card"><h3>교육 모드</h3>
+        <p>신호마다 "왜 위험한가"를 함께 표시해, 경고가 곧 학습이 되게 합니다.</p></div>
+    </div>
+    <p class="note">도입 문의: <a href="mailto:pygichacha@gmail.com">pygichacha@gmail.com</a></p>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2>설치</h2>
+    <p class="sub">크롬 웹스토어 심사 중입니다. 등록되면 이 자리에 설치 버튼이 올라갑니다.</p>
+    <!-- TODO: 등록 후 아래를 실제 스토어 링크로 교체
+    <p><a class="btn primary" style="background:var(--brand);color:#fff"
+          href="https://chromewebstore.google.com/detail/...">크롬 웹스토어에서 설치</a></p>
+    -->
+    <p class="note">문의: <a href="mailto:pygichacha@gmail.com">pygichacha@gmail.com</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="privacy.html">개인정보처리방침</a>·
+    <a href="https://github.com/ahnoldmoon/linkprivacy">GitHub</a>·
+    <a href="mailto:pygichacha@gmail.com">문의</a>
+    <p style="margin-top:10px">© 2026 LinkGuard</p>
+  </div>
+</footer>
+
+</body>
+</html>
