@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LinkGuard 개인정보처리방침</title>
+<meta name="description" content="LinkGuard 크롬 확장 프로그램의 개인정보처리방침. 사용자 데이터를 수집하지 않습니다.">
+<link rel="icon" href="img/icon128.png">
+<style>
+  :root{ --bg:#fff; --fg:#16181d; --muted:#5f6672; --line:#e6e8ec; --soft:#f6f7f9; --brand:#2f4fd0; }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#15171b; --fg:#e9eaec; --muted:#9aa0a6; --line:#2c2f36; --soft:#1c1f24; --brand:#6ea8ff; }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--fg);
+    font:16px/1.8 -apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",sans-serif}
+  .wrap{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+  a{color:var(--brand)}
+  h1{font-size:27px;font-weight:800;letter-spacing:-.6px;margin-bottom:6px}
+  .date{color:var(--muted);font-size:14px;margin-bottom:28px}
+  h2{font-size:17px;font-weight:700;margin:32px 0 8px}
+  p,li{font-size:15.5px}
+  ul{margin:8px 0 8px 20px}
+  li{margin:3px 0}
+  .box{background:var(--soft);border:1px solid var(--line);border-left:3px solid var(--brand);
+    border-radius:8px;padding:16px 18px;margin:18px 0}
+  table{border-collapse:collapse;width:100%;font-size:14.5px;margin:12px 0}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-size:13px}
+  .back{display:inline-block;margin-bottom:22px;font-size:14px;text-decoration:none}
+  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← LinkGuard</a>
+  <h1>개인정보처리방침</h1>
+  <p class="date">최종 수정일: 2026년 8월 13일</p>
+
+  <div class="box">
+    <b>한 줄 요약</b> — LinkGuard는 어떠한 개인정보도 수집·저장·전송하지 않습니다.
+    모든 분석은 사용자의 브라우저 안에서 이루어집니다.
+  </div>
+
+  <h2>1. 수집하지 않는 정보</h2>
+  <ul>
+    <li>방문한 웹사이트 주소 및 방문 기록</li>
+    <li>페이지 내용, 입력값, 쿠키, 로그인 정보</li>
+    <li>이메일 주소, 이름 등 개인 식별 정보</li>
+    <li>사용 통계, 분석(analytics), 광고 식별자</li>
+  </ul>
+  <p>개발자는 사용자의 브라우징 활동을 볼 수 없으며, 이를 수집하는 서버 자체가 존재하지 않습니다.</p>
+
+  <h2>2. 확장 프로그램이 하는 일</h2>
+  <p>링크에 마우스를 올리면 그 링크의 <b>주소 문자열만</b>을 브라우저 안에서 검사합니다
+     (도메인 구조, 유사 브랜드 여부, 파일 확장자 등). 이 과정에서 외부와의 통신은 없습니다.</p>
+
+  <h2>3. 선택 기능을 켰을 때의 외부 통신</h2>
+  <p>사용자가 설정에서 <b>"네트워크 조회"</b>를 직접 켠 경우에만 다음 통신이 발생합니다.</p>
+  <table>
+    <thead><tr><th>기능</th><th>통신 대상</th><th>보내는 것</th></tr></thead>
+    <tbody>
+      <tr><td>도메인 등록일 조회</td><td>rdap.org 및 해당 도메인 등록기관의 RDAP 서버</td><td>조회할 도메인 이름</td></tr>
+      <tr><td>리다이렉트 경로 추적</td><td>사용자가 확인을 요청한 그 링크의 서버</td><td>HTTP 요청 (쿠키·인증정보 미포함)</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>두 기능 모두 기본값은 <b>꺼짐</b>이며, 꺼진 상태에서는 어떤 외부 통신도 하지 않습니다.</li>
+    <li>리다이렉트 추적은 사용자가 버튼을 누른 링크에 대해서만 실행됩니다.</li>
+    <li>요청에 쿠키·인증정보를 포함하지 않습니다(<code>credentials: omit</code>).</li>
+    <li>조회 결과는 사용자의 브라우저에만 저장됩니다(도메인 등록 정보 7일, 추적 결과 6시간).
+        설정에서 언제든 삭제할 수 있습니다.</li>
+    <li>개발자는 이 통신 내용을 수신하거나 보관하지 않습니다.</li>
+  </ul>
+
+  <h2>4. 브라우저에 저장되는 정보</h2>
+  <p><code>chrome.storage</code>에 다음이 저장되며, 모두 사용자 기기에만 남습니다.</p>
+  <ul>
+    <li>사용자 설정(표시 지연시간, 표시 기준, 신뢰 도메인 목록, 제외 사이트 목록 등)</li>
+    <li>조회 결과 캐시(도메인 등록일, 리다이렉트 경로)</li>
+  </ul>
+  <p>크롬 동기화를 사용하는 경우 설정 값은 사용자 본인의 구글 계정을 통해 기기 간 동기화될 수 있습니다.
+     이는 크롬의 기능이며 개발자에게 전달되지 않습니다. 확장 프로그램을 삭제하면 저장된 정보도 함께 삭제됩니다.</p>
+
+  <h2>5. 제3자 제공</h2>
+  <p>없습니다. 어떠한 정보도 판매·공유·양도하지 않습니다.</p>
+
+  <h2>6. 원격 코드</h2>
+  <p>원격 코드를 내려받아 실행하지 않습니다. 모든 코드는 확장 프로그램 패키지에 포함되어 있습니다.</p>
+
+  <h2>7. 아동 대상 여부</h2>
+  <p>만 14세 미만 아동을 대상으로 하지 않으며, 연령 정보를 수집하지 않습니다.</p>
+
+  <h2>8. 방침 변경</h2>
+  <p>변경 시 이 문서의 최종 수정일을 갱신하고, 중요한 변경 사항은 확장 프로그램 업데이트 설명에 안내합니다.</p>
+
+  <h2>9. 문의</h2>
+  <p>이메일: <a href="mailto:pygichacha@gmail.com">pygichacha@gmail.com</a><br>
+     개발자: ahnoldmoon</p>
+
+  <footer>© 2026 LinkGuard · <a href="index.html">홈으로</a></footer>
+</div>
+</body>
+</html>
