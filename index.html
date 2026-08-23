@@ -24,7 +24,8 @@
     padding:22px 24px; text-decoration:none; color:inherit;
     transition:border-color .15s;
   }
-  .card:hover { border-color:var(--accent); }
+  .card + .card { margin-top:14px; }
+  .card:hover { border-color:#9aa3a8; }
   .card img { width:52px; height:52px; border-radius:12px; flex-shrink:0; }
   .card h3 { font-size:17px; font-weight:800; letter-spacing:-0.025em; }
   .card p { font-size:14.5px; color:var(--muted); margin-top:5px; }
@@ -36,6 +37,12 @@
   footer { margin-top:60px; padding-top:22px; border-top:1px solid var(--line);
            font-size:13.5px; color:var(--muted); }
   footer a { color:var(--accent); }
+  @media (max-width:560px) {
+    body { padding:44px 16px 60px; }
+    h1 { font-size:25px; }
+    .card { gap:14px; padding:18px 18px; }
+    .card img { width:44px; height:44px; }
+  }
 </style>
 </head>
 <body>
@@ -48,6 +55,16 @@
   </p>
 
   <h2>만든 것</h2>
+
+  <a class="card" href="maskshot/">
+    <img src="maskshot/img/icon128.png" alt="" />
+    <div>
+      <h3>스크린샷 개인정보 자동 마스킹 (MaskShot)</h3>
+      <p>화면을 캡처하면 주민등록번호·카드번호·계좌번호·전화번호·이메일을 자동으로 찾아 가려 주는
+         Chrome 확장 프로그램. 이미지와 찾아낸 내용은 브라우저 안에서만 처리되며 서버로 전송되지 않습니다.</p>
+      <div class="tags"><span>Chrome 확장</span><span>서버 전송 없음</span><span>한국형 패턴</span></div>
+    </div>
+  </a>
 
   <a class="card" href="table2xlsx/">
     <img src="table2xlsx/img/icon128.png" alt="" />
